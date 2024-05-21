@@ -1,0 +1,51 @@
+Com estes em comum para as primeiras 3 queries:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+1.
+SELECT (COUNT(DISTINCT ?class) AS ?numClasses)
+WHERE {
+  ?class rdf:type owl:Class .
+}
+
+res=6
+
+2.
+SELECT (COUNT(DISTINCT ?property) AS ?numObjectProperties)
+WHERE {
+  ?property rdf:type owl:ObjectProperty .
+}
+
+res = 13
+
+3.
+SELECT (COUNT(DISTINCT ?individual) AS ?numIndividuos)
+WHERE {
+  ?individual rdf:type owl:NamedIndividual .
+}
+
+res=15
+
+4. Não tenho o intance de tomates, mas tenho de cenoura, que leva à mesma conclusão:
+PREFIX : <http://rpcw.di.uminho.pt/2024/2024/4/untitled-ontology-23/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?pessoa
+WHERE {
+  ?pessoa rdf:type :Pessoas .
+  ?pessoa :cultivaV :cenoura .
+}
+
+res = Carlos
+
+5.
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/2024/4/untitled-ontology-23/>
+
+SELECT DISTINCT ?pessoa
+WHERE {
+  ?pessoa rdf:type :Pessoas .
+  ?pessoa :contrata :Trabalhadores .
+}
+
+res = João

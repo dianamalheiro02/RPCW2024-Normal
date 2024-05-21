@@ -1,0 +1,107 @@
+11.
+a)
+PREFIX ex: <http://www.example.org/disease-ontology#>
+SELECT (COUNT(?disease) AS ?numDiseases)
+WHERE {
+    ?disease a ex:Disease .
+}
+
+res=41
+
+b)
+PREFIX ex: <http://www.example.org/disease-ontology#>
+SELECT DISTINCT ?diseaseName
+WHERE {
+    ?disease a ex:Disease .
+    ?disease ex:hasSymptom ex:yellowish_skin .
+    ?disease ex:hasDescription ?description .
+    BIND(REPLACE(STR(?disease), "^.*#", "") AS ?diseaseName)
+}
+
+res=
+"Alcoholic_hepatitis"
+"Chronic_cholestasis"
+"Hepatitis_B"
+"Hepatitis_C"
+"Hepatitis_D"
+"Hepatitis_E"
+"Jaundice"
+"hepatitis_A"
+
+c)
+PREFIX ex: <http://www.example.org/disease-ontology#>
+SELECT DISTINCT ?diseaseName
+WHERE {
+    ?disease a ex:Disease .
+    ?disease ex:hasTreatment ex:exercise .
+    ?disease ex:hasDescription ?description .
+    BIND(REPLACE(STR(?disease), "^.*#", "") AS ?diseaseName)
+}
+
+res=
+"Arthritis"
+"Cervical_spondylosis"
+"GERD"
+"Hypothyroidism"
+"Paralysis_(brain_hemorrhage)"
+
+d)
+PREFIX ex: <http://www.example.org/disease-ontology#>
+SELECT DISTINCT ?patientName
+WHERE {
+    ?patient a ex:Patient ;
+             ex:name ?patientName .
+}
+ORDER BY ?patientName
+
+
+12.
+PREFIX ex: <http://www.example.org/disease-ontology#>
+CONSTRUCT {
+    ?patient ex:hasDisease ?disease .
+}
+WHERE {
+    ?patient a ex:Patient ;
+             ex:exhibitsSymptom ?symptom .
+    ?disease ex:hasSymptom ?symptom .
+}
+
+
+13.
+PREFIX ex: <http://www.example.org/disease-ontology#>
+SELECT ?disease (COUNT(?patient) AS ?numPatients)
+WHERE {
+    ?patient a ex:Patient ;
+             ex:hasDisease ?disease .
+    ?disease ex:hasDescription ?description .
+    BIND(REPLACE(STR(?disease), "^.*#", "") AS ?diseaseName)
+}
+GROUP BY ?diseaseName
+ORDER BY ?diseaseName
+
+
+14.
+PREFIX ex: <http://www.example.org/disease-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?symptomName (COUNT(?disease) AS ?numDiseases)
+WHERE {
+    ?disease a ex:Disease ;
+             ex:hasSymptom ?symptom .
+    ?symptom rdfs:label ?symptomName .
+}
+GROUP BY ?symptomName
+ORDER BY ?symptomName
+
+
+15.
+PREFIX ex: <http://www.example.org/disease-ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?treatmentName (COUNT(?disease) AS ?numDiseases)
+WHERE {
+    ?disease a ex:Disease ;
+             ex:hasTreatment ?treatment .
+    ?treatment rdfs:label ?treatmentName .
+}
+GROUP BY ?treatmentName
+ORDER BY ?treatmentName
+
