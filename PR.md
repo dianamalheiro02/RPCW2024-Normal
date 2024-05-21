@@ -144,9 +144,9 @@ O meu PG é PG53766. Daí só estar presente esse ficheiro.
 Para chegar ao resultado segui estes passos:
 
 - Executar popula.py (tem em atenção os caminhos que tem no programa para os ficheiros);
-- Executar as queries presentes em queries.txt (só até à 12, inclusive);
+- Executar as queries presentes em queries.txt (só até à 12, inclusive) no sparql;
 - Executar addConstruct.py;
 - Adicionar a nova ontologia criada (med_doentes2.ttl);
-- Executar query 13;
+- Executar query 13 no sparql;
 - Executar queries1415.py para obter resultado das últimas 2 queries nos ficheiros ResQuery14 e 15, respetivamente.
 
